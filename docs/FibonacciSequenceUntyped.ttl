@@ -1,0 +1,83 @@
+# MIT License, Copyright 2020 Samu Lang
+
+@prefix : <http://example.com/> .
+@prefix xt: <http://example.com/ExpressionTypes/> .
+
+:fibonacci 
+    :parameterType [
+        :typeName "System.Func`2" ;
+        :typeArguments (
+            [
+                :typeName "System.Int64" ;
+            ]
+            [
+                :typeName "System.Int64" ;
+            ]
+        ) ;
+    ] ;
+.
+
+:n 
+    :parameterType [
+        :typeName "System.Int64" ;
+    ] ;
+.
+
+:s
+    :blockVariables (
+        :fibonacci
+    ) ;
+    :blockExpressions (
+        [
+            :binaryExpressionType xt:Assign ;
+            :binaryLeft :fibonacci ;
+            :binaryRight [
+                :lambdaParameters (
+                    :n
+                ) ;
+                :lambdaBody [
+                    :conditionTest [
+                        :binaryExpressionType xt:LessThan ;
+                        :binaryLeft :n ;
+                        :binaryRight [
+                            :constantValue 2 ;
+                        ] ;
+                    ] ;
+                    :conditionIfTrue :n ;
+                    :conditionIfFalse [
+                        :binaryExpressionType xt:Add ;
+                        :binaryLeft [
+                            :invokeExpression :fibonacci ;
+                            :invokeArguments (
+                                [
+                                    :binaryExpressionType xt:Subtract ;
+                                    :binaryLeft :n ;
+                                    :binaryRight [
+                                        :constantValue 2 ;
+                                    ] ;
+                                ]
+                            ) ;
+                        ] ;
+                        :binaryRight [
+                            :invokeExpression :fibonacci ;
+                            :invokeArguments (
+                                [
+                                    :unaryExpressionType xt:Decrement ;
+                                    :unaryOperand :n ;
+                                ]
+                            ) ;
+                        ] ;
+                    ] ;
+                ] ;
+            ] ;
+        ]
+        [
+            :invokeExpression :fibonacci ;
+            :invokeArguments (
+                [
+                    :constantValue 8 ;
+                ]
+            ) ;
+        ]
+    ) ;
+.

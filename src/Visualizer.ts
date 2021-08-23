@@ -2,7 +2,8 @@
     Scene,
     PerspectiveCamera,
     WebGLRenderer,
-    AmbientLight
+    AmbientLight,
+    Vector3,
 } from "three"
 import { FlyControls } from "three/examples/jsm/controls/FlyControls"
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls"
@@ -54,7 +55,7 @@ export default class Visualizer extends HTMLCanvasElement {
             //.nodeResolution(1)
             .nodeThreeObjectExtend(true)
             .nodeThreeObject((d: RdfNodeObject) => new SpriteText(d.label, 5, "lightgrey"))
-            .linkThreeObject((d: RdfLinkObject) => new SpriteText(d.label, 5, "lightgrey"))
+            .linkThreeObject((d: RdfLinkObject) => d.sprite = new SpriteText(d.label, 5, "lightgrey"))
             .linkWidth(2)
             .linkThreeObjectExtend(true)
             .linkPositionUpdate((obj, { start, end }) => Object.assign(
@@ -89,7 +90,23 @@ export default class Visualizer extends HTMLCanvasElement {
             this.trackball.update()
         }
 
+        this.graph.graphData().links.forEach(this.rotateLinkSprites, this)
+
         this.renderer.render(this.scene, this.camera)
+    }
+
+    // TODO: Why is rotation slightly off with non-square window?
+    private rotateLinkSprites(link: any): void {
+        if ("id" in link.source) {
+            const source = link.source
+            const target = link.target
+
+            const start = new Vector3(source.x, source.y, source.z).project(this.camera)
+            const end = new Vector3(target.x, target.y, target.z).project(this.camera)
+            const delta = end.sub(start)
+
+            link.sprite.material.rotation = Math.atan(delta.y / delta.x)
+        }
     }
 
     private onResize(): void {

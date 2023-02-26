@@ -1,0 +1,17 @@
+{
+  "client_name": "RDF 3D",
+  "client_uri": "https://github.com/langsamu/rdf-3d",
+  "policy_uri": "https://github.com/langsamu/rdf-3d/blob/main/data-policy.md",
+
+
+  "client_id": "https://langsamu.github.io/rdf-3d/id.jsonld",
+  "logo_uri": "https://langsamu.github.io/rdf-3d/logo.svg",
+  "token_endpoint_auth_method": "none",
+  "redirect_uris": ["https://langsamu.github.io/rdf-3d/authentication.html"],
+
+  "scope": "openid webid",
+  "grant_types": ["authorization_code", "offline_access"],
+  "response_types": ["code"],
+
+  "@context": "https://www.w3.org/ns/solid/oidc-context.jsonld"
+}

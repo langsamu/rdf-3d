@@ -1,4 +1,4 @@
-﻿export function convertLabel(original: string): string {
+export function convertLabel(original) {
     return original
         .replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "a")
 

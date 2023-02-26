@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta name="viewport" content="width = device-width"/>
+        <meta charset="utf-8"/>
+        <title>RDF 3D JS</title>
+        <style>
+            body {
+                margin: 0;
+            }
+
+            canvas {
+                display: block;
+            }
+        </style>
+        <script src="./packages/unpkg.com/three@0.150.0/build/three.js"></script>
+        <script src="./packages/unpkg.com/three-forcegraph@1.41.5/dist/three-forcegraph.min.js"></script>
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "./packages/unpkg.com/three@0.150.0/build/three.module.js",
+                    "three/addons/": "./packages/unpkg.com/three@0.150.0/examples/jsm/"
+                }
+            }
+        </script>
+        <script type="module" src="./index.js"></script>
+    </head>
+    <body>
+        <main is="x-app">
+            <canvas is="x-visualizer"></canvas>
+        </main>
+    </body>
+</html>

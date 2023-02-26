@@ -84,7 +84,6 @@ export default class Visualizer extends HTMLCanvasElement {
         this.#renderer.render(this.#scene, this.#camera)
     }
 
-    // TODO: Why is rotation slightly off with non-square window?
     #rotateLinkSprites(link) {
         if ("id" in link.source) {
             const source = link.source

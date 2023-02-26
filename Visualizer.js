@@ -94,7 +94,7 @@ export default class Visualizer extends HTMLCanvasElement {
             const end = new Vector3(target.x, target.y, target.z).project(this.#camera)
             const delta = end.sub(start)
 
-            link.sprite.material.rotation = Math.atan(delta.y / delta.x)
+            link.sprite.material.rotation = Math.atan2(delta.y, delta.x * this.camera.aspect)
         }
     }
 

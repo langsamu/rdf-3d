@@ -25,8 +25,13 @@ Put a URL-encoded URI in the fragment to load remote RDF.
 Put an RDF file serialized as TURTLE in the `docs` folder and reference it by file name in the fragment:
 [`http://localhost:8080/#FibonacciSequenceUntyped.ttl`](http://localhost:8080/#FibonacciSequenceUntyped.ttl)
 
+### Layout
+- Press `L` to toggle displaying node and edge labels.
+- Press `,` to decrease edge length.
+- Press `.` to increase edge length.
+
 ### Navigating
-**Hit shift to toggle** between '[trackball](https://threejs.org/docs/#examples/en/controls/TrackballControls)' and '[fly](https://threejs.org/docs/#examples/en/controls/FlyControls)' controls.
+**Press `SHIFT` to toggle** between '[trackball](https://threejs.org/docs/#examples/en/controls/TrackballControls)' and '[fly](https://threejs.org/docs/#examples/en/controls/FlyControls)' controls.
 
 #### Trackball (default)
 - Click and drag with the mouse to rotate the visualized graph around its center.
@@ -36,6 +41,6 @@ Put an RDF file serialized as TURTLE in the `docs` folder and reference it by fi
 #### Fly
 - Move the mouse to look around (pan the camera).
 - Click to move forward and right click to move back.
-- Press **WASD** to move forward, back, right and left.
-- Press **QE** to rotate right and left.
-- Press **RF** to move up and down.
+- Press `WASD` to move forward, back, right and left.
+- Press `QE` to rotate right and left.
+- Press `RF` to move up and down.

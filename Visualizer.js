@@ -14,6 +14,7 @@ export default class Visualizer extends HTMLCanvasElement {
     #trackball
     #fly
     #shift = false
+    #labels
 
     connectedCallback() {
         this.#buildScene()
@@ -41,7 +42,7 @@ export default class Visualizer extends HTMLCanvasElement {
 
         this.#graph = new ThreeForceGraph()
             .nodeRelSize(5)
-            //.nodeResolution(1)
+            .nodeResolution(10)
             .nodeThreeObjectExtend(true)
             .nodeThreeObject((d) => new SpriteText(d.label, 5, "lightgrey"))
             .linkThreeObject((d) => d.sprite = new SpriteText(d.label, 5, "lightgrey"))
@@ -107,6 +108,27 @@ export default class Visualizer extends HTMLCanvasElement {
     #onKeydown(e) {
         if (e.shiftKey) {
             this.#shift = !this.#shift
+        }
+
+        if (e.key === ",") {
+            this.#graph.d3Force("link").distance(this.#graph.d3Force("link").distance()() - 5)
+            this.#graph.d3ReheatSimulation()
+        }
+        if (e.key === ".") {
+            this.#graph.d3Force("link").distance(this.#graph.d3Force("link").distance()() + 5)
+            this.#graph.d3ReheatSimulation()
+        }
+
+        if (e.key === "l") {
+            this.#labels = !this.#labels
+        }
+
+        if (this.#labels) {
+            this.#graph.linkThreeObject(d => d.sprite = new SpriteText)
+            this.#graph.nodeThreeObject(() => null)
+        } else {
+            this.#graph.linkThreeObject(d => d.sprite = new SpriteText(d.label, 5, "lightgrey"))
+            this.#graph.nodeThreeObject(d => new SpriteText(d.label, 5, "lightgrey"))
         }
     }
 }

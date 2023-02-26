@@ -1,6 +1,6 @@
 # MIT License, Copyright 2020 Samu Lang
 
-@prefix : <http://example.com/> .
+@prefix : <http://example.org/> .
 @prefix xt: <http://example.com/ExpressionTypes/> .
 
 :fibonacci 

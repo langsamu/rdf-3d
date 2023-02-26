@@ -12,6 +12,6 @@ export default class RdfNodeObject {
     }
 
     get label() {
-        return convertLabel(this.#term.value)
+        return convertLabel(this.#term)
     }
 }

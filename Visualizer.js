@@ -84,7 +84,6 @@ export default class Visualizer extends HTMLCanvasElement {
         this.#renderer.render(this.#scene, this.#camera)
     }
 
-    // TODO: Why is rotation slightly off with non-square window?
     #rotateLinkSprites(link) {
         if ("id" in link.source) {
             const source = link.source
@@ -94,7 +93,7 @@ export default class Visualizer extends HTMLCanvasElement {
             const end = new Vector3(target.x, target.y, target.z).project(this.#camera)
             const delta = end.sub(start)
 
-            link.sprite.material.rotation = Math.atan(delta.y / delta.x)
+            link.sprite.material.rotation = Math.atan2(delta.y, delta.x * this.#camera.aspect)
         }
     }
 

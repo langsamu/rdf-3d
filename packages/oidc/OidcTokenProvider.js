@@ -5,14 +5,6 @@ import {Oauth} from "../common/Vocabulary.js"
 const oidcMatcher = /Bearer/
 
 export class OidcTokenProvider extends TokenProvider {
-    #oidc
-
-    constructor(oidc) {
-        super()
-
-        this.#oidc = oidc;
-    }
-
     /** @inheritDoc */
     matches(challenge) {
         return oidcMatcher.test(challenge)
@@ -20,8 +12,12 @@ export class OidcTokenProvider extends TokenProvider {
 
     /** @inheritDoc */
     async getToken(challenge) {
-        const credentials = await this.#oidc.getCredentials()
+        const credentials = await this.#getCredentials()
 
         return new DPopBoundAccessToken(credentials.tokenResponse[Oauth.AccessToken], credentials.dpopKey)
+    }
+
+    async #getCredentials() {
+        return await new Promise(resolve => this.dispatchEvent(new CustomEvent("needCredentials", {detail: {resolve}})))
     }
 }

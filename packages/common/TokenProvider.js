@@ -1,4 +1,4 @@
-export class TokenProvider {
+export class TokenProvider extends EventTarget {
     /**
      * @abstract
      * @param challenge {string}

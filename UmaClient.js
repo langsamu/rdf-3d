@@ -8,7 +8,6 @@ import {
     OauthMetadata,
     Uma
 } from "./packages/common/Vocabulary.js"
-import {Cache} from "./packages/common/Cache.js"
 import {DPoP} from "./packages/oidc/DPoP.js"
 import {DPopBoundAccessToken} from "./DPopBoundAccessToken.js"
 
@@ -16,9 +15,9 @@ export class UmaClient {
     #authorizationServer
     #metadataCache
 
-    constructor(authorizationServer) {
+    constructor(authorizationServer, cache) {
         this.#authorizationServer = authorizationServer
-        this.#metadataCache = new Cache("uma.metadata.cache")
+        this.#metadataCache = cache
     }
 
     /**

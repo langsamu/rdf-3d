@@ -10,21 +10,16 @@ import {
     Pkce,
     Solid
 } from "../common/Vocabulary.js"
-import {Cache} from "../common/Cache.js"
 import {basic} from "../common/Utils.js"
 import {DPoP} from "./DPoP.js"
 
 export class OidcClient {
     #identityProvider
     #redirectUri
-    #metadataCache
-    #clientCache
 
     constructor(identityProvider, redirectUri) {
         this.#identityProvider = identityProvider
         this.#redirectUri = redirectUri
-        this.#metadataCache = new Cache("oidc.metadata.cache")
-        this.#clientCache = new Cache("oidc.client.cache")
     }
 
     async register() {
@@ -120,13 +115,7 @@ export class OidcClient {
     }
 
     async #discover() {
-        if (!this.#metadataCache.has(this.#identityProvider)) {
-            const response = await fetch(new URL(Oidc.Discovery, this.#identityProvider))
-            const json = await response.json()
-
-            this.#metadataCache.set(this.#identityProvider, json)
-        }
-
-        return this.#metadataCache.get(this.#identityProvider)
+        const response = await fetch(new URL(Oidc.Discovery, this.#identityProvider))
+        return await response.json()
     }
 }

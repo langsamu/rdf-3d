@@ -7,17 +7,19 @@ export class ReactiveAuthenticationClient extends EventTarget {
     /** @type {TokenProvider[]} */
     #tokenProviders
 
-    #challengeCache = new Map
+    #challengeCache
 
     #underlyingFetch
 
     /**
+     * @param {Map} cache
      * @param {TokenProvider[]} tokenProviders
      * @param fetch
      */
-    constructor(tokenProviders, fetch = window.fetch) {
+    constructor(cache, tokenProviders, fetch = window.fetch) {
         super()
 
+        this.#challengeCache = cache
         this.#tokenProviders = tokenProviders
         this.#underlyingFetch = fetch
     }
